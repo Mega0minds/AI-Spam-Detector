@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Detector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            background: #f1f1f1;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Spam Message Classifier</h1>
+    <form method="POST">
+        <label for="message">Enter a message:</label><br>
+        <textarea name="message" rows="4" required>{{ message or '' }}</textarea><br>
+        <input type="submit" value="Check Spam">
+    </form>
+
+    {% if result_nb is not none %}
+        <div class="result">
+            <p><strong>Naive Bayes:</strong> {{ 'SPAM' if result_nb else 'HAM' }}</p>
+            <p><strong>Logistic Regression:</strong> {{ 'SPAM' if result_lr else 'HAM' }}</p>
+            <p><strong>Linear SVC:</strong> {{ 'SPAM' if result_svc else 'HAM' }}</p>
+            <hr>
+            <h3>✅ Final Result (Majority Vote): {{ 'SPAM' if result_majority else 'HAM' }}</h3>
+        </div>
+    {% endif %}
+</body>
+</html>
